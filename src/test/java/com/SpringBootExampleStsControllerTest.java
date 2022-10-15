@@ -1,4 +1,4 @@
-package com.javatpoint.spring_boot_example_sts;
+package com;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
