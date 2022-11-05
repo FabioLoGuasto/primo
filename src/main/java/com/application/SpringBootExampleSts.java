@@ -1,6 +1,7 @@
 package com.application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 // http://localhost:8080/welcome
 
@@ -34,8 +35,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @Configuration: ci consente di registrare bean extra nel contesto o importare classi di configurazione aggiuntive.
  */
 
-@SpringBootApplication
-@ComponentScan({"com..controller"}) // DICE DI CARICARE QUELLO CHE C'è NEL PACKAGE TRA PARENTESI
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })  // Used for do curl
+//@ComponentScan({"com..controller"}) // DICE DI CARICARE QUELLO CHE C'è NEL PACKAGE TRA PARENTESI
 public class SpringBootExampleSts {
 	
 	public static void main(String[] args) {
