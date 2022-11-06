@@ -1,11 +1,13 @@
 package com.application.service;
 
 import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.application.model.Dipendente;
-import com.application.repository.DipendenteRepository;
 
 //DECIDO I MIEI SERVIZI
-
+@Service
 public interface DipendenteService {
 	
 	// GET
@@ -20,8 +22,9 @@ public interface DipendenteService {
     Dipendente saveDepartment(Dipendente dip);
  
     // GET
-    List<DipendenteRepository> getAllDipendenti();
-    public Dipendente getDipendenteById(int id);
+    List<Dipendente> getAllDipendenti();
+    
+    Dipendente getDipendenteById(int id);
  
     // UPDATE
     Dipendente updateDipendenti(Dipendente dip,int dipendenteId);

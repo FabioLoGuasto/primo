@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.Data;
 
 
@@ -21,38 +22,39 @@ public class Dipendente {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO) 
-	private int id; 
-	@Column(name = "nome")
+	private Long id;
+	
+	@Column(nullable = true, name = "nome")
 	private String nome;
 	
-	@Column(name = "cognome")
+	@Column(nullable = true, name = "cognome")
 	private String cognome;
 	
-	@Column(name = "eta")
-	private int eta;
+	@Column(nullable = true, name = "eta")
+	private Integer eta;
 	
-	@Column(name = "annoAssunzione")
-	private int annoAssunzione;
+	@Column(nullable = true, name = "annoAssunzione")
+	private Integer annoAssunzione;
 	
-	@Column(name = "oreContratto")
-	private int oreContratto;
+	@Column(nullable = true, name = "oreContratto")
+	private Integer oreContratto;
 	
-	@Column(name = "categoriaProtetta")
+	@Column(nullable = true, name = "categoriaProtetta")
 	private String categoriaProtetta;
 	
-	@Column(name = "articolo104")
+	@Column(nullable = true, name = "articolo104")
 	private String articolo104;
 	
-	@Column(name = "livelloContratto")
-	private int livelloContratto;
+	@Column(nullable = true, name = "livelloContratto")
+	private Integer livelloContratto;
 	
-	@Column(name = "ral")
-	private int ral;
+	@Column(nullable = true, name = "ral")
+	private Integer ral;
 	
-	@Column(name = "negozio")
+	@Column(nullable = true, name = "negozio")
 	private String negozio;
 	
-	@Column(name = "codiceNegozio")
-	private int codiceNegozio;
-
+	@Column(nullable = true, name = "codiceNegozio")
+	private Integer codiceNegozio;
+	
 }

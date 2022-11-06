@@ -4,8 +4,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -39,6 +39,8 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 @RequestMapping(value = "/api")
 public class SpringBootExampleStsController {
 	
+	public static final Logger logger = LoggerFactory.getLogger(SpringBootExampleStsController.class);
+	
 	@Autowired
 	DipendenteService dipendenteService;
 	
@@ -48,10 +50,10 @@ public class SpringBootExampleStsController {
 	}
 
 	
-	@Value("${api.path}")
+	/*@Value("${api.path}")
 	private String apiPath;
 	@Value("${api.key}")
-	private String apiKey;
+	private String apiKey;*/
 	
 	
 	/**
@@ -99,12 +101,16 @@ public class SpringBootExampleStsController {
 	
 //-------------------------- GET ----------------------------------------------------
 // localhost:8080/api/getDipendenti
-  @GetMapping(path ="/getDipendenti", produces = MediaType.APPLICATION_JSON_VALUE)
-  public @ResponseBody ResponseEntity<List<Dipendente>> getDipendenti(){ // CREO IL METODO X LA RISPOSTA HTTP
+  @GetMapping(path ="/getDipendenti", produces=MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<List<Dipendente>> getDipendenti(){ // CREO IL METODO X LA RISPOSTA HTTP
+	  logger.info("GetDipendenti");
 	try {
-		return new ResponseEntity<List<Dipendente>>(HttpStatus.OK);// MI RICHIAMO IL METODO DALLA interface DipendenteService
+		List<Dipendente> res = this.dipendenteService.getAllDipendenti();
+		logger.info("DIPENDENTI: \n", res);
+		return new ResponseEntity<List<Dipendente>>(res, HttpStatus.OK);
 		}catch (Exception e) {
-		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			logger.error("ERROR: \n", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}      
   }   
 

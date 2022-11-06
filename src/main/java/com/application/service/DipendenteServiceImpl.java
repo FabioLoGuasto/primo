@@ -1,14 +1,11 @@
 package com.application.service;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.application.model.Dipendente;
 import com.application.repository.DipendenteRepository;
-
-import javassist.NotFoundException;
 
 /*
  * QUA IMPLEMENTO I MIEI SERVIZI ED
@@ -39,9 +36,8 @@ public class DipendenteServiceImpl implements DipendenteService {
 	}
 
 	@Override
-	public List<DipendenteRepository> getAllDipendenti() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Dipendente> getAllDipendenti() {
+		return this.dipendenteRepository.findAll();
 	}
 
 	@Override
