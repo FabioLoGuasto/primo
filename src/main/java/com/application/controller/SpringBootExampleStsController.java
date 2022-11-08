@@ -67,35 +67,62 @@ public class SpringBootExampleStsController {
 	
 //	----------------- GET ------------------------------------
 	
-	// localhost:8080/api/findDipendente/ -----> devo mettere l'ID
-	@GetMapping("/findDipendente/{id}") // -----------------------------> OK
-	public Dipendente getDipendente3(@PathVariable("id")int id) {
-		return this.dipendenteService.findDipendentiById(id);
-	}
+//	// localhost:8080/api/findDipendente/ -----> devo mettere l'ID
+//	@GetMapping("/findDipendente/{id}") // -----------------------------> OK
+//	public Dipendente getDipendente3(@PathVariable("id")int id) {
+//		return this.dipendenteService.findDipendentiById(id);
+//	}
 
-	// localhost:8080/api/findDipendente?id=1  -----------------> OK
-	@GetMapping("/findDipendente") 
-	public Dipendente getDipendente4(@RequestParam("id")int id) {
-		return this.dipendenteService.findDipendentiById(id);
-	}
+//	// localhost:8080/api/findDipendente?id=1  -----------------> OK
+//	@GetMapping("/findDipendente") 
+//	public Dipendente getDipendente4(@RequestParam("id")int id) {
+//		return this.dipendenteService.findDipendentiById(id);
+//	}
 	
+	
+	// localhost:8080/api/dammiTuttiDipendentiQuery
+	@GetMapping(path ="/dammiTuttiDipendentiQuery", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <List<Dipendente>> dammiTuttiDipendenti(){
+		logger.info("dammiTuttiDipendenti");
+		try {
+			List<Dipendente> risultato = this.dipendenteService.listaDipendenti();
+			logger.info("DIPENDENTI: \n", risultato);
+			return new ResponseEntity<List<Dipendente>>(risultato, HttpStatus.OK);
+		}catch(Exception e) {
+			logger.error("ERROR: \n", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 //	----------------- POST ------------------------------------
 	
-	// localhost:8080/api/addDipendente
-	@PostMapping("/addDipendente") // -----------------------------> SOLO TRAMITE POSTMAN, NON FUNZIONA CON BROWSER
-	public Dipendente addStudent(@RequestBody Dipendente s) {
-		Dipendente nuovo = this.dipendenteService.insertDipendente(s); // il metodo ritorna uno Student quindi lo salvo in una var Student
-		System.out.println(nuovo);
-		return nuovo;
-	}
+//	// localhost:8080/api/addDipendente
+//	@PostMapping("/addDipendente") // -----------------------------> SOLO TRAMITE POSTMAN, NON FUNZIONA CON BROWSER
+//	public Dipendente addStudent(@RequestBody Dipendente s) {
+//		Dipendente nuovo = this.dipendenteService.insertDipendente(s); // il metodo ritorna uno Student quindi lo salvo in una var Student
+//		System.out.println(nuovo);
+//		return nuovo;
+//	}
+	
+	
+	
+	
 	
 //  -------------------------- GUIDA ----------------------------------------------------	
+	
+	
+	
 //  -------------------------- CREATE ----------------------------------------------------	
-	// localhost:8080/api/dipendenteSave
-  @PostMapping("/dipendenteSave")
-  public Dipendente saveDepartment(
-      @Valid @RequestBody Dipendente dipendente) {
-      return dipendenteService.saveDepartment(dipendente);
+	
+	// localhost:8080/api/insertDipendente
+  @PostMapping(path ="/insertDipendente", produces=MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity <Dipendente> insertDipendente(@RequestBody Dipendente dip){
+	  try {
+		  Dipendente insertDip = dipendenteService.saveDipendente(dip);
+		  return new ResponseEntity<Dipendente>(insertDip, HttpStatus.OK);
+	  } catch (Exception e) {
+		  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	  }
+      
   }
 	
 	
@@ -112,7 +139,38 @@ public class SpringBootExampleStsController {
 			logger.error("ERROR: \n", e);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}      
-  }   
+  }
+  
+  
+  
+  
+  //localhost:8080/api/getOneDipendente/ -----> devo mettere l'ID
+	@GetMapping(path ="/getOneDipendente/{id}", produces=MediaType.APPLICATION_JSON_VALUE) 
+	public ResponseEntity <Dipendente> getOneDipendente(@PathVariable("id")Long id) {
+		try {
+			Dipendente singleDip = dipendenteService.getDipendenteById(id);
+			return new ResponseEntity<Dipendente>(singleDip,HttpStatus.OK);
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
+	}
+	
+
+	
+//localhost:8080/api/getDipendentiByName/ -----> devo mettere l'ID
+	@GetMapping(path ="/getDipendentiByName/{nome}", produces=MediaType.APPLICATION_JSON_VALUE) 
+	public ResponseEntity <List<Dipendente>> getDipendentiByName(@PathVariable("nome")String nome) {
+		try {
+			List<Dipendente> listaDip = dipendenteService.getDipendentiByName(nome);
+			return new ResponseEntity<List<Dipendente>>(listaDip,HttpStatus.OK);
+		}catch(Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
+	}	
+	
+	
 
 //-------------------------- UPDATE ----------------------------------------------------
   // localhost:8080/api/updateById/1

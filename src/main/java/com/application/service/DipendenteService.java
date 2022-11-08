@@ -11,20 +11,21 @@ import com.application.model.Dipendente;
 public interface DipendenteService {
 	
 	// GET
-	Dipendente findDipendentiById (int id);
+//	Dipendente findDipendentiById (int id);
+	List <Dipendente> listaDipendenti();
 	
 	// POST
-	Dipendente insertDipendente(Dipendente s);
+//	Dipendente insertDipendente(Dipendente s);
 
 	
-	// ------------------------------------------------------------------
+// -------------------------- GUIDA ----------------------------------------
 	// CREATE
-    Dipendente saveDepartment(Dipendente dip);
+	Dipendente saveDipendente(Dipendente dip);
  
     // GET
     List<Dipendente> getAllDipendenti();
-    
-    Dipendente getDipendenteById(int id);
+    Dipendente getDipendenteById(Long id);
+    List <Dipendente> getDipendentiByName(String nome);
  
     // UPDATE
     Dipendente updateDipendenti(Dipendente dip,int dipendenteId);
