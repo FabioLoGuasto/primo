@@ -65,6 +65,8 @@ public class SpringBootExampleStsController {
 		return "IT WORKS!!";
 	}
 	
+// --------------------- QUERY -------------------------------------	
+	
 //	----------------- GET ------------------------------------
 	
 //	// localhost:8080/api/findDipendente/ -----> devo mettere l'ID
@@ -93,6 +95,23 @@ public class SpringBootExampleStsController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	
+	
+	// localhost:8080/api/getAgeMore30?eta=30
+	@GetMapping(path ="/getAgeMore30", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity <List<Dipendente>> getAgeMore30(@RequestParam(value="eta")int eta){
+		logger.info("getAgeMore30");
+		try {
+			List<Dipendente> r = this.dipendenteService.listaDipendentiAgeMore30(eta);
+			logger.info("DIPENDENTI: \n", r);
+			return new ResponseEntity<List<Dipendente>>(r, HttpStatus.OK);
+		}catch(Exception e) {
+			logger.error("ERROR: \n", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
 //	----------------- POST ------------------------------------
 	
 //	// localhost:8080/api/addDipendente

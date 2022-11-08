@@ -28,7 +28,13 @@ public class DipendenteServiceImpl implements DipendenteService {
 	public List<Dipendente> listaDipendenti() {
 		return dipendenteRepository.listaDipendenti();
 	}
-
+	
+	@Override
+	public List <Dipendente> listaDipendentiAgeMore30(int eta){
+		return dipendenteRepository.listaDipendentiAgeMore30(eta);
+	}
+	
+	
 //	@Override
 //	public Dipendente insertDipendente(Dipendente s) {
 //		// TODO Auto-generated method stub

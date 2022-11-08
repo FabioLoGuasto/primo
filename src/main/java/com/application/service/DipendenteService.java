@@ -9,10 +9,14 @@ import com.application.model.Dipendente;
 //DECIDO I MIEI SERVIZI
 @Service
 public interface DipendenteService {
+
 	
+	
+// --------------------- QUERY -------------------------------	
 	// GET
 //	Dipendente findDipendentiById (int id);
-	List <Dipendente> listaDipendenti();
+	List <Dipendente> listaDipendenti();//QUERY
+	List <Dipendente> listaDipendentiAgeMore30(int eta);//QUERY
 	
 	// POST
 //	Dipendente insertDipendente(Dipendente s);
