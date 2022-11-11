@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.application.model.Dipendente;
@@ -34,6 +35,20 @@ public class DipendenteServiceImpl implements DipendenteService {
 		return dipendenteRepository.listaDipendentiAgeMore30(eta);
 	}
 	
+	@Override
+	public List <Dipendente> listaDipendentiAgeMore30PathValue(int eta){
+		return dipendenteRepository.listaDipendentiAgeMore30PathValue(eta);
+	}
+	
+	@Override
+	public List<Dipendente> findEtaBetween(@Param("start") int start, @Param("end") int end){
+		return dipendenteRepository.findEtaBetween(start, end);
+	}
+	
+	@Override
+	public List <Dipendente> findNome(@Param("nome") String nome){
+		return dipendenteRepository.findNome(nome);
+	}
 	
 //	@Override
 //	public Dipendente insertDipendente(Dipendente s) {
@@ -51,6 +66,12 @@ public class DipendenteServiceImpl implements DipendenteService {
 	@Override
 	public Dipendente saveDipendente(Dipendente dip) {
 		return dipendenteRepository.save(dip);
+	}
+	
+	
+	@Override
+	public void saveDipendenteVoid(Dipendente dip) {
+		dipendenteRepository.save(dip);
 	}
 
 	
@@ -87,20 +108,15 @@ public class DipendenteServiceImpl implements DipendenteService {
 	
 // ------------------------------- UPDATE ------------------------------------------		
 	@Override
-	public Dipendente updateDipendenti(Dipendente dip, int dipendenteId) {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateDipendenti(Dipendente dip) {
+		dipendenteRepository.save(dip);
 	}
 
 	
-	
-	
-	
 // ------------------------------- DELETE ------------------------------------------	
 	@Override
-	public void deleteDipendentiById(int dipendenteId) {
-		// TODO Auto-generated method stub
-		
+	public void deleteDipendentiById(Long id) {
+		dipendenteRepository.deleteById(id);		
 	}
 
 }
