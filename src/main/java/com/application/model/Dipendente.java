@@ -55,5 +55,6 @@ public class Dipendente {
 	private String negozio;
 	
 	@Column(nullable = true, name = "codiceNegozio")
-	private Integer codiceNegozio;	
+	private Integer codiceNegozio;
+
 }

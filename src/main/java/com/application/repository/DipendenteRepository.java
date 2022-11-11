@@ -22,13 +22,20 @@ public interface DipendenteRepository extends JpaRepository<Dipendente, Long> {
 	
 	List<Dipendente>findByNomeContaining(String nome);
 
-	@Query(value = "SELECT * FROM negozio.dipendenti", nativeQuery = true)
+	@Query(value = "SELECT * FROM negozio.dipendenti", nativeQuery = true) // ---------> OK
 	List <Dipendente> listaDipendenti();
-	
-	
-	
-	@Query(value ="select * from dipendenti d where d.eta > ?1", nativeQuery = true)
+		
+	@Query(value ="select * from dipendenti d where d.eta > ?1", nativeQuery = true) // ---------> OK
 	List <Dipendente> listaDipendentiAgeMore30(int eta);
 	//01:33
+	
+	@Query(value ="select * from dipendenti d where d.eta > ?1", nativeQuery = true) // ---------> OK
+	List <Dipendente> listaDipendentiAgeMore30PathValue(int eta);
+	
+	@Query(value = "SELECT * FROM dipendenti d WHERE d.eta BETWEEN :start AND :end", nativeQuery = true) // ---------> OK
+	List<Dipendente> findEtaBetween(@Param("start") int start, @Param("end") int end);
+	
+	@Query(value = "SELECT * FROM dipendenti d WHERE d.nome=:nome", nativeQuery = true) // ---------> OK
+	List<Dipendente> findNome(@Param("nome") String nome);
 	
 }
