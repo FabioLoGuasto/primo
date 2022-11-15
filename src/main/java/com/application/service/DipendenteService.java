@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.application.model.Dipendente;
+import com.application.model.Generico;
 
 //DECIDO I MIEI SERVIZI
 @Service
@@ -20,6 +21,7 @@ public interface DipendenteService {
 	
 	// GUIDA CREATE
 	Dipendente saveDipendente(Dipendente dip); // ---------------> OK
+	public Dipendente insertDipendenteGenerico(Generico g); // -----------> OK
 	
     // GUIDA GET
     List<Dipendente> getAllDipendenti(); // ------> OK

@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.application.model.Dipendente;
+import com.application.model.Generico;
 import com.application.repository.DipendenteRepository;
 
 /*
@@ -44,10 +45,14 @@ public class DipendenteServiceImpl implements DipendenteService {
 	}
 	
 	
+	@Override
+	public Dipendente insertDipendenteGenerico(Generico g) {
+		Dipendente dipendenteGenerico = new Dipendente(g.getIdGenerico(),g.getNomeGenerico(),g.getCognomeGenerico(),g.getEtaGenerico(),g.getAnnoassunzioneGenerico(),g.getOrecontrattoGenerico(),g.getCategoriaprotettaGenerico(),g.getArticolo104Generico(),g.getLivellocontrattoGenerico(),g.getRalGenerico(),g.getNegozioGenerico(),g.getCodicenegozioGenerico());
+		return dipendenteRepository.save(dipendenteGenerico);
+	}
+	
+	
 // ------------------------------- GUIDA GET ------------------------------------------		
-	/**
-	 * ritorna la lista dei dipendenti
-	 */
 	@Override
 	public List<Dipendente> getAllDipendenti() {
 		return this.dipendenteRepository.findAll();

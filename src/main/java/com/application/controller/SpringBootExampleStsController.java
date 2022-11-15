@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.application.error.ApiError;
 import com.application.error.NotFoundException;
 import com.application.model.Dipendente;
+import com.application.model.Generico;
 import com.application.service.DipendenteService;
 
 
@@ -140,6 +141,28 @@ public class SpringBootExampleStsController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}     
     }
+	
+	
+	/*
+	 * aggiungo un dipendente tramite payload differente 
+	 * faccio tornare un nuovo dipedente che salverò del db
+	 */
+	// localhost:8080/api/insertDipendenteGenerico
+	@PostMapping(path ="/insertDipendenteGenerico", produces=MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity <Dipendente> insertDipendenteGenerico(@RequestBody Generico g){
+		logger.info("insertDipendenteGenerico");
+		logger.info("@RequestBody:",g);
+		try {
+			Dipendente insertDipGenerico = dipendenteService.insertDipendenteGenerico(g);
+			logger.info("DIPENDENTI: \n", insertDipGenerico);
+			return new ResponseEntity<Dipendente>(insertDipGenerico,HttpStatus.CREATED);
+		} catch (Exception e) {
+			logger.error("ERROR: \n", e);
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}     
+    }
+	
+	
 	
 //-------------------------- GUIDA GET ----------------------------------------------------
   
