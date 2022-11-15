@@ -2,7 +2,6 @@ package com.application.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,13 +19,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.application.error.ApiError;
 import com.application.error.NotFoundException;
 import com.application.model.Dipendente;
 import com.application.service.DipendenteService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 
 /**
@@ -65,22 +64,8 @@ public class SpringBootExampleStsController {
 		return "IT WORKS!!";
 	}
 	
-// --------------------- QUERY -------------------------------------	
-	
-//	----------------- GET ------------------------------------
-	
-//	// localhost:8080/api/findDipendente/ -----> devo mettere l'ID
-//	@GetMapping("/findDipendente/{id}") // -----------------------------> OK
-//	public Dipendente getDipendente3(@PathVariable("id")int id) {
-//		return this.dipendenteService.findDipendentiById(id);
-//	}
-
-//	// localhost:8080/api/findDipendente?id=1  -----------------> OK
-//	@GetMapping("/findDipendente") 
-//	public Dipendente getDipendente4(@RequestParam("id")int id) {
-//		return this.dipendenteService.findDipendentiById(id);
-//	}
-	
+// --------------------- QUERY GET -------------------------------------	
+		
 	/*
 	 * get list of dipendenti by query
 	 */
@@ -115,26 +100,7 @@ public class SpringBootExampleStsController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-	
-	
-	
-	/*
-	 * get list of dipendenti where age it's more then 30 by query(@PathVariable)
-	 */
-	// localhost:8080/api/getAgeMore30PathValue/30
-	@GetMapping(path ="/getAgeMore30PathValue/{eta}", produces=MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <List<Dipendente>> getAgeMore30PathValue(@PathVariable("eta")int eta){
-		logger.info("getAgeMore30PathValue");
-		try {
-			List<Dipendente> r1 = this.dipendenteService.listaDipendentiAgeMore30PathValue(eta);
-			logger.info("DIPENDENTI: \n", r1);
-			return new ResponseEntity<List<Dipendente>>(r1, HttpStatus.OK);
-		}catch(Exception e) {
-			logger.error("ERROR: \n", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-	}
-	
+		
 	
 	/*
 	 * get list of dipendenti where age it's beetweek 20 and 30 by query(@RequestParam)
@@ -153,43 +119,8 @@ public class SpringBootExampleStsController {
 			}
 		}
 	
-	
-	/*
-	 * get list of dipendenti through nome by query(@RequestParam)
-	 */
-	// localhost:8080/api/findNomeDaQuery?nome=paolo
-		@GetMapping(path ="/findNomeDaQuery", produces=MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity <List<Dipendente>> findNomeDaQuery(@RequestParam(value="nome")String nome){
-			logger.info("findNomeDaQuery");
-			try {
-				List<Dipendente> dipNome = this.dipendenteService.findNome(nome);
-				logger.info("DIPENDENTI: \n", dipNome);
-				return new ResponseEntity<List<Dipendente>>(dipNome, HttpStatus.OK);
-			}catch(Exception e) {
-				logger.error("ERROR: \n", e);
-				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-			}
-		}
-	
-//	----------------- POST ------------------------------------
-	
-//	// localhost:8080/api/addDipendente
-//	@PostMapping("/addDipendente") // -----------------------------> SOLO TRAMITE POSTMAN, NON FUNZIONA CON BROWSER
-//	public Dipendente addStudent(@RequestBody Dipendente s) {
-//		Dipendente nuovo = this.dipendenteService.insertDipendente(s); // il metodo ritorna uno Student quindi lo salvo in una var Student
-//		System.out.println(nuovo);
-//		return nuovo;
-//	}
-	
-	
-	
-	
-	
-//  -------------------------- GUIDA ----------------------------------------------------	
-	
-	
-	
-//  -------------------------- CREATE ----------------------------------------------------	
+
+//  --------------------------GUIDA CREATE ----------------------------------------------------	
 	
 	/*
 	 * aggiungo un dipendente
@@ -199,6 +130,7 @@ public class SpringBootExampleStsController {
 	@PostMapping(path ="/insertDipendente", produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity <Dipendente> insertDipendente(@RequestBody Dipendente dip){
 		logger.info("insertDipendente");
+		logger.info("@RequestBody:",dip);
 		try {
 			Dipendente insertDip = dipendenteService.saveDipendente(dip);
 			logger.info("DIPENDENTI: \n", insertDip);
@@ -209,28 +141,7 @@ public class SpringBootExampleStsController {
 		}     
     }
 	
-	
-	/*
-	 * aggiungo un dipendente
-	 * prova di aggiunta usando un void
-	 */
-	// localhost:8080/api/insertDipendenteVoid
-	@PostMapping(path ="/insertDipendenteVoid", produces=MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity <String> insertDipendenteVoid(@RequestBody Dipendente dip){	
-		logger.info("insertDipendenteVoid");
-		try {
-			dipendenteService.saveDipendenteVoid(dip);
-			logger.info("DIPENDENTI: \n");
-			return new ResponseEntity<String>("inserimento ok", HttpStatus.CREATED);
-		} catch (Exception e) {
-			logger.error("ERROR: \n", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}     
-    }
-	
-	
-	
-//-------------------------- GET ----------------------------------------------------
+//-------------------------- GUIDA GET ----------------------------------------------------
   
 	 /*
 	  *  get list of dipendenti 
@@ -248,70 +159,28 @@ public class SpringBootExampleStsController {
 				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			 }      
 	}
-  
-  
-  
-	/*
-	 * get dipendente through id by jpa (@PathVariable)
-	 */
-	//localhost:8080/api/getOneDipendente/ -----> devo mettere l'ID
-	@GetMapping(path ="/getOneDipendente/{id}", produces=MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity <Dipendente> getOneDipendente(@PathVariable("id")Long id) {		
-		logger.info("getOneDipendente");
-		try {
-			Dipendente singleDip = dipendenteService.getDipendenteById(id);
-			logger.info("DIPENDENTI: \n", singleDip);
-			return new ResponseEntity<Dipendente>(singleDip,HttpStatus.OK);
-		}catch(Exception e) {
-			logger.error("ERROR: \n", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
-	}
-	
-
-	/*
-	 * get list of dipendenti through nome by jpa (@PathVariable)
-	 */
-	//localhost:8080/api/getDipendentiByName/ -----> devo mettere l'ID
-	@GetMapping(path ="/getDipendentiByName/{nome}", produces=MediaType.APPLICATION_JSON_VALUE) 
-	public ResponseEntity <List<Dipendente>> getDipendentiByName(@PathVariable("nome")String nome) {
-		logger.info("getDipendentiByName");
-		try {
-			List<Dipendente> listaDip = dipendenteService.getDipendentiByName(nome);
-			logger.info("DIPENDENTI: \n", listaDip);
-			return new ResponseEntity<List<Dipendente>>(listaDip,HttpStatus.OK);
-		}catch(Exception e) {
-			logger.error("ERROR: \n", e);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
-		
-	}	
-	
-	
-
-//-------------------------- UPDATE ----------------------------------------------------
+//-------------------------- GUIDA UPDATE ----------------------------------------------------
 	
 	/*
 	 * update dipendente dato un ID
+	 * nella logica di businnes setto al paylod, l'id dell'url che passo cosi su postman non devo scrivere l'id
+	 * fa tutto in automatico
 	 */
 	  // localhost:8080/api/updateById/1
 	 @PutMapping("/updateById/{id}")
 	 public ResponseEntity <String> updateDipendente(@PathVariable("id") Long id, @RequestBody Dipendente d) {
 		 logger.info("updateById");
 		 try { 
-			 dipendenteService.updateDipendenti(d);
+			 dipendenteService.updateDipendenti(id,d);
 			 logger.info("DIPENDENTI: \n");
 			 return new ResponseEntity <>("modificato",HttpStatus.OK);
 		 }catch(Exception e) {			 
 			 logger.error("ERROR: \n", e);
 			 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		 }
-     }
-	
-	
-  
-//-------------------------- DELETE ----------------------------------------------------
+     }  
+	 
+//-------------------------- GUIDA DELETE ----------------------------------------------------
   
 	  /* 
 	   * Delete one dipendente through id by jpa (@PathVariable)
@@ -322,7 +191,7 @@ public class SpringBootExampleStsController {
 		  logger.info("deleteById");
 		  try {
 			  dipendenteService.deleteDipendentiById(id);
-			  logger.info("DIPENDENTI: \n");
+			  logger.info("Dipendente " + id + " eliminato !!!");
 			  return new ResponseEntity <>("eliminato",HttpStatus.OK);
 		  }catch(Exception e) {
 			  logger.error("ERROR: \n", e);
@@ -330,10 +199,7 @@ public class SpringBootExampleStsController {
 		  }
 		  
 	  }
-  
-  
-  
-  
+
 //  --------------------------- METODO CON ECCEZIONE --------------------------------------    
   
   
