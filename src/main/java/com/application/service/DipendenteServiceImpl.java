@@ -40,14 +40,17 @@ public class DipendenteServiceImpl implements DipendenteService {
 // ------------------------------- GUIDA POST ------------------------------------------	
 	@Override
 	public Dipendente saveDipendente(Dipendente dip) {
-		Dipendente dipendente = new Dipendente(dip.getId(),dip.getNome(),dip.getCognome(),dip.getEta(),dip.getAnnoassunzione(),dip.getOrecontratto(),dip.getCategoriaprotetta(),dip.getArticolo104(),dip.getLivellocontratto(),dip.getRal(),dip.getNegozio(),dip.getCodicenegozio());
+		Dipendente dipendente = new Dipendente(dip.getId(),dip.getNome(),dip.getCognome(),dip.getEta(),dip.getAnno_assunzione(),
+				dip.getOre_contratto(),dip.getData_di_nascita(),dip.getGender(), dip.getId_azienda());
 		return dipendenteRepository.save(dipendente);
 	}
 	
 	
 	@Override
 	public Dipendente insertDipendenteGenerico(Generico g) {
-		Dipendente dipendenteGenerico = new Dipendente(g.getIdGenerico(),g.getNomeGenerico(),g.getCognomeGenerico(),g.getEtaGenerico(),g.getAnnoassunzioneGenerico(),g.getOrecontrattoGenerico(),g.getCategoriaprotettaGenerico(),g.getArticolo104Generico(),g.getLivellocontrattoGenerico(),g.getRalGenerico(),g.getNegozioGenerico(),g.getCodicenegozioGenerico());
+		Dipendente dipendenteGenerico = new Dipendente(g.getIdGenerico(),g.getNomeGenerico(),g.getCognomeGenerico(),g.getEtaGenerico(),
+				g.getAnno_assunzioneGenerico(),g.getOre_contrattoGenerico(),
+				g.getData_di_nascitaGenerico(),g.getGenderGenerico(),g.getId_aziendaGenerico());
 		return dipendenteRepository.save(dipendenteGenerico);
 	}
 	

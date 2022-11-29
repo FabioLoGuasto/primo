@@ -1,40 +1,34 @@
 package com.application.model;
+import java.util.Date;
+
 public class Generico {
 	
-	
-	
+
 	private Long idGenerico;	
 	private String nomeGenerico;	
 	private String cognomeGenerico;	
 	private Integer etaGenerico;	
-	private Integer annoassunzioneGenerico;
-	private Integer orecontrattoGenerico;	
-	private String categoriaprotettaGenerico;	
-	private String articolo104Generico;	
-	private Integer livellocontrattoGenerico;	
-	private Integer ralGenerico;		
-	private String negozioGenerico;	
-	private Integer codicenegozioGenerico;
+	private Integer anno_assunzioneGenerico;
+	private Integer ore_contrattoGenerico;
+	private Date data_di_nascitaGenerico;
+	private Gender genderGenerico;
+	private Integer id_aziendaGenerico;
+
 	
 	public Generico() {}
 	
 	public Generico(Long idGenerico, String nomeGenerico, String cognomeGenerico, Integer etaGenerico,
-			Integer annoassunzioneGenerico, Integer orecontrattoGenerico, String categoriaprotettaGenerico,
-			String articolo104Generico, Integer livellocontrattoGenerico, Integer ralGenerico, String negozioGenerico,
-			Integer codicenegozioGenerico) {
-		super();
+			Integer anno_assunzioneGenerico, Integer ore_contrattoGenerico, Date data_di_nascitaGenerico,Gender genderGenerico,
+			Integer id_aziendaGenerico) {
 		this.idGenerico = idGenerico;
 		this.nomeGenerico = nomeGenerico;
 		this.cognomeGenerico = cognomeGenerico;
 		this.etaGenerico = etaGenerico;
-		this.annoassunzioneGenerico = annoassunzioneGenerico;
-		this.orecontrattoGenerico = orecontrattoGenerico;
-		this.categoriaprotettaGenerico = categoriaprotettaGenerico;
-		this.articolo104Generico = articolo104Generico;
-		this.livellocontrattoGenerico = livellocontrattoGenerico;
-		this.ralGenerico = ralGenerico;
-		this.negozioGenerico = negozioGenerico;
-		this.codicenegozioGenerico = codicenegozioGenerico;
+		this.anno_assunzioneGenerico = anno_assunzioneGenerico;
+		this.ore_contrattoGenerico = ore_contrattoGenerico;
+		this.data_di_nascitaGenerico = data_di_nascitaGenerico;
+		this.genderGenerico = genderGenerico;
+		this.id_aziendaGenerico = id_aziendaGenerico;
 	}
 	
 	public Long getIdGenerico() {
@@ -61,56 +55,37 @@ public class Generico {
 	public void setEtaGenerico(Integer etaGenerico) {
 		this.etaGenerico = etaGenerico;
 	}
-	public Integer getAnnoassunzioneGenerico() {
-		return annoassunzioneGenerico;
+	public Integer getAnno_assunzioneGenerico() {
+		return anno_assunzioneGenerico;
 	}
-	public void setAnnoassunzioneGenerico(Integer annoassunzioneGenerico) {
-		this.annoassunzioneGenerico = annoassunzioneGenerico;
+	public void setAnno_assunzioneGenerico(Integer anno_assunzioneGenerico) {
+		this.anno_assunzioneGenerico = anno_assunzioneGenerico;
 	}
-	public Integer getOrecontrattoGenerico() {
-		return orecontrattoGenerico;
+	public Integer getOre_contrattoGenerico() {
+		return ore_contrattoGenerico;
 	}
-	public void setOrecontrattoGenerico(Integer orecontrattoGenerico) {
-		this.orecontrattoGenerico = orecontrattoGenerico;
+	public void setOre_contrattoGenerico(Integer ore_contrattoGenerico) {
+		this.ore_contrattoGenerico = ore_contrattoGenerico;
 	}
-	public String getCategoriaprotettaGenerico() {
-		return categoriaprotettaGenerico;
+	public Integer getId_aziendaGenerico() {
+		return id_aziendaGenerico;
 	}
-	public void setCategoriaprotettaGenerico(String categoriaprotettaGenerico) {
-		this.categoriaprotettaGenerico = categoriaprotettaGenerico;
+	public void setId_aziendaGenerico(Integer id_aziendaGenerico) {
+		this.id_aziendaGenerico = id_aziendaGenerico;
 	}
-	public String getArticolo104Generico() {
-		return articolo104Generico;
+	public Date getData_di_nascitaGenerico() {
+		return data_di_nascitaGenerico;
 	}
-	public void setArticolo104Generico(String articolo104Generico) {
-		this.articolo104Generico = articolo104Generico;
+	public void setData_di_nascitaGenerico(Date data_di_nascitaGenerico) {
+		this.data_di_nascitaGenerico = data_di_nascitaGenerico;
 	}
-	public Integer getLivellocontrattoGenerico() {
-		return livellocontrattoGenerico;
+	public Gender getGenderGenerico() {
+		return genderGenerico;
 	}
-	public void setLivellocontrattoGenerico(Integer livellocontrattoGenerico) {
-		this.livellocontrattoGenerico = livellocontrattoGenerico;
-	}
-	public Integer getRalGenerico() {
-		return ralGenerico;
-	}
-	public void setRalGenerico(Integer ralGenerico) {
-		this.ralGenerico = ralGenerico;
-	}
-	public String getNegozioGenerico() {
-		return negozioGenerico;
-	}
-	public void setNegozioGenerico(String negozioGenerico) {
-		this.negozioGenerico = negozioGenerico;
-	}
-	public Integer getCodicenegozioGenerico() {
-		return codicenegozioGenerico;
-	}
-	public void setCodicenegozioGenerico(Integer codicenegozioGenerico) {
-		this.codicenegozioGenerico = codicenegozioGenerico;
+	public void setGenderGenerico(Gender genderGenerico) {
+		this.genderGenerico = genderGenerico;
 	}
 	
 	
 	
-
 }

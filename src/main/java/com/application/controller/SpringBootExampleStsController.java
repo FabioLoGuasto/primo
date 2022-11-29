@@ -186,7 +186,7 @@ public class SpringBootExampleStsController {
 	
 	/*
 	 * update dipendente dato un ID
-	 * nella logica di businnes setto al paylod, l'id dell'url che passo cosi su postman non devo scrivere l'id
+	 * nella logica di businnes setto l'id dell'url che passo cosi su postman non devo scrivere l'id
 	 * fa tutto in automatico
 	 */
 	  // localhost:8080/api/updateById/1
@@ -195,7 +195,7 @@ public class SpringBootExampleStsController {
 		 logger.info("updateById");
 		 try { 
 			 dipendenteService.updateDipendenti(id,d);
-			 logger.info("DIPENDENTI: \n");
+			 logger.info("\n Il dipendente: " + d.getId() + " " + d.getNome() + " " + d.getCognome() + " è stato modificato !!!!");
 			 return new ResponseEntity <>("modificato",HttpStatus.OK);
 		 }catch(Exception e) {			 
 			 logger.error("ERROR: \n", e);
