@@ -41,7 +41,7 @@ public class DipendenteServiceImpl implements DipendenteService {
 	@Override
 	public Dipendente saveDipendente(Dipendente dip) {
 		Dipendente dipendente = new Dipendente(dip.getId(),dip.getNome(),dip.getCognome(),dip.getEta(),dip.getAnno_assunzione(),
-				dip.getOre_contratto(),dip.getData_di_nascita(),dip.getGender(), dip.getId_azienda());
+				dip.getOre_contratto(),dip.getData_di_nascita(),dip.getGender(), dip.getAzienda_id());
 		return dipendenteRepository.save(dipendente);
 	}
 	
@@ -50,7 +50,7 @@ public class DipendenteServiceImpl implements DipendenteService {
 	public Dipendente insertDipendenteGenerico(Generico g) {
 		Dipendente dipendenteGenerico = new Dipendente(g.getIdGenerico(),g.getNomeGenerico(),g.getCognomeGenerico(),g.getEtaGenerico(),
 				g.getAnno_assunzioneGenerico(),g.getOre_contrattoGenerico(),
-				g.getData_di_nascitaGenerico(),g.getGenderGenerico(),g.getId_aziendaGenerico());
+				g.getData_di_nascitaGenerico(),g.getGenderGenerico(),g.getAzGenerico());
 		return dipendenteRepository.save(dipendenteGenerico);
 	}
 	

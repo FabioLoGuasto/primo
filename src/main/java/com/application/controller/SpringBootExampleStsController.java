@@ -23,8 +23,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.application.error.ApiError;
 import com.application.error.NotFoundException;
+import com.application.model.Azienda;
 import com.application.model.Dipendente;
 import com.application.model.Generico;
+import com.application.service.AziendaService;
 import com.application.service.DipendenteService;
 
 
@@ -43,6 +45,9 @@ public class SpringBootExampleStsController {
 	
 	@Autowired
 	DipendenteService dipendenteService;
+	
+	@Autowired
+	AziendaService aziendaService;
 	
 	@RequestMapping("/welcome")
 	public String welcomepage() {
@@ -65,7 +70,7 @@ public class SpringBootExampleStsController {
 		return "IT WORKS!!";
 	}
 	
-// --------------------- QUERY GET -------------------------------------	
+// --------------------- QUERY GET DIPENDENTE -------------------------------------	
 		
 	/*
 	 * get list of dipendenti by query
@@ -121,7 +126,7 @@ public class SpringBootExampleStsController {
 		}
 	
 
-//  --------------------------GUIDA CREATE ----------------------------------------------------	
+//  -------------------------- INSERT DIPENDENTE ----------------------------------------------------	
 	
 	/*
 	 * aggiungo un dipendente
@@ -164,7 +169,7 @@ public class SpringBootExampleStsController {
 	
 	
 	
-//-------------------------- GUIDA GET ----------------------------------------------------
+//-------------------------- GET DIPENDENTE ----------------------------------------------------
   
 	 /*
 	  *  get list of dipendenti 
@@ -182,7 +187,8 @@ public class SpringBootExampleStsController {
 				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 			 }      
 	}
-//-------------------------- GUIDA UPDATE ----------------------------------------------------
+	
+//-------------------------- UPDATE DIPENDENTE ----------------------------------------------------
 	
 	/*
 	 * update dipendente dato un ID
@@ -203,7 +209,7 @@ public class SpringBootExampleStsController {
 		 }
      }  
 	 
-//-------------------------- GUIDA DELETE ----------------------------------------------------
+//-------------------------- DELETE DIPENDENTE ----------------------------------------------------
   
 	  /* 
 	   * Delete one dipendente through id by jpa (@PathVariable)
@@ -222,7 +228,85 @@ public class SpringBootExampleStsController {
 		  }
 		  
 	  }
+	    
+// ---------------------------- GET AZIENDA --------------------------------------------------
+	  
+	  /*
+	  *  get list of aziende through jpa
+	  */
+	  // localhost:8080/api/getAziende
+	  @GetMapping(path ="/getAziende", produces=MediaType.APPLICATION_JSON_VALUE)
+	  public ResponseEntity<List<Azienda>> getAziende(){ // CREO IL METODO X LA RISPOSTA HTTP
+		  logger.info("getAziende");		  
+		  try {
+			  List<Azienda> res = this.aziendaService.getAllAziende();
+			  logger.info("aZIENDE: \n", res);
+			  return new ResponseEntity<List<Azienda>>(res, HttpStatus.OK);
+			  }catch (Exception e) {				   
+				 logger.error("ERROR: \n", e);
+				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			 }      
+	  }
 
+// ---------------------------- INSERT AZIENDA --------------------------------------------------
+	  
+	  /*
+	   * insert new azienda through jpa
+	   */
+	  // localhost:8080/api/insertAzienda
+	  @PostMapping(path ="/insertAzienda", produces=MediaType.APPLICATION_JSON_VALUE)
+	  public ResponseEntity <Azienda> insertAzienda(@RequestBody Azienda az){
+		  logger.info("insertAzienda");
+		  try {
+			  Azienda insertAzienda = aziendaService.saveAzienda(az);
+			  logger.info("INSERIMENTO AZIENDA: \n", insertAzienda.getId_azienda(), insertAzienda.getNome_azienda(), insertAzienda.getSede_azienda());
+			  return new ResponseEntity<Azienda>(insertAzienda,HttpStatus.CREATED);
+		  } catch (Exception e) {
+			  logger.error("ERROR: \n", e);
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		  }     
+	  }
+	  
+// ---------------------------- UPDATE AZIENDA --------------------------------------------------	  
+	  
+	  /*
+	   * update azienda dato un ID
+	   * nella logica di businnes setto l'id dell'url che passo, cosi su postman non devo scrivere l'id
+	   * fa tutto in automatico
+	   */
+	  // localhost:8080/api/updateAziendaById/1
+	  @PutMapping("/updateAziendaById/{id}")
+	  public ResponseEntity <String> updateAzienda(@PathVariable("id") Long id, @RequestBody Azienda az) {
+		  logger.info("updateAziendaById");
+		  try { 
+			  aziendaService.updateAzienda(id, az);
+			  logger.info("\n L'azienda: " + az.getId_azienda() + " " + az.getNome_azienda() + " " + az.getSede_azienda() + " è stato modificato !!!!");
+			  return new ResponseEntity <>("modificato",HttpStatus.OK);
+		  }catch(Exception e) {	
+			  logger.error("ERROR: \n", e);
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); 
+		  }
+	  } 
+	  
+// ---------------------------- DELETE AZIENDA --------------------------------------------------	
+	  
+	  /* 
+	   * Delete one azienda through id by jpa (@PathVariable)
+	   */
+	  // localhost:8080/api/deleteAziendaById/1
+	  @DeleteMapping("/deleteAziendaById/{id}")
+	  public ResponseEntity <String> deleteAziendaDipById(@PathVariable("id") Long id) {
+		  logger.info("deleteAziendaById");
+		  try {
+			  aziendaService.deleteAziendaById(id);
+			  logger.info("L'azienda " + id + " è stata eliminata !!!");
+			  return new ResponseEntity <>("eliminata",HttpStatus.OK);
+		  }catch(Exception e) {
+			  logger.error("ERROR: \n", e);
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		  }
+	  }
+	  
 //  --------------------------- METODO CON ECCEZIONE --------------------------------------    
   
   

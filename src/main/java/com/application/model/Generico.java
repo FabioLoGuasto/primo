@@ -12,14 +12,14 @@ public class Generico {
 	private Integer ore_contrattoGenerico;
 	private Date data_di_nascitaGenerico;
 	private Gender genderGenerico;
-	private Integer id_aziendaGenerico;
+	private Azienda azGenerico;
 
 	
 	public Generico() {}
 	
 	public Generico(Long idGenerico, String nomeGenerico, String cognomeGenerico, Integer etaGenerico,
 			Integer anno_assunzioneGenerico, Integer ore_contrattoGenerico, Date data_di_nascitaGenerico,Gender genderGenerico,
-			Integer id_aziendaGenerico) {
+			Azienda azGenerico) {
 		this.idGenerico = idGenerico;
 		this.nomeGenerico = nomeGenerico;
 		this.cognomeGenerico = cognomeGenerico;
@@ -28,7 +28,7 @@ public class Generico {
 		this.ore_contrattoGenerico = ore_contrattoGenerico;
 		this.data_di_nascitaGenerico = data_di_nascitaGenerico;
 		this.genderGenerico = genderGenerico;
-		this.id_aziendaGenerico = id_aziendaGenerico;
+		this.azGenerico = azGenerico;
 	}
 	
 	public Long getIdGenerico() {
@@ -67,11 +67,11 @@ public class Generico {
 	public void setOre_contrattoGenerico(Integer ore_contrattoGenerico) {
 		this.ore_contrattoGenerico = ore_contrattoGenerico;
 	}
-	public Integer getId_aziendaGenerico() {
-		return id_aziendaGenerico;
+	public Azienda getAzGenerico() {
+		return azGenerico;
 	}
-	public void setId_aziendaGenerico(Integer id_aziendaGenerico) {
-		this.id_aziendaGenerico = id_aziendaGenerico;
+	public void setAzGenerico(Azienda azGenerico) {
+		this.azGenerico = azGenerico;
 	}
 	public Date getData_di_nascitaGenerico() {
 		return data_di_nascitaGenerico;
