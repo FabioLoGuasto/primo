@@ -1,5 +1,5 @@
 package com.application.model;
-// https://www.youtube.com/watch?v=8qhaDBCJh6I
+//https://www.techgeeknext.com/onetomany
 
 import java.util.HashSet;
 import java.util.Set;

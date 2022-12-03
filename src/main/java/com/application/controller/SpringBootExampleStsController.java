@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.application.error.ApiError;
 import com.application.error.NotFoundException;
 import com.application.model.Azienda;
+import com.application.model.DatoLavorativo;
 import com.application.model.Dipendente;
 import com.application.model.Generico;
 import com.application.service.AziendaService;
+import com.application.service.DatoLavorativoService;
 import com.application.service.DipendenteService;
 
 
@@ -48,6 +50,9 @@ public class SpringBootExampleStsController {
 	
 	@Autowired
 	AziendaService aziendaService;
+	
+	@Autowired
+	DatoLavorativoService datoLavorativoService;
 	
 	@RequestMapping("/welcome")
 	public String welcomepage() {
@@ -306,6 +311,24 @@ public class SpringBootExampleStsController {
 			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		  }
 	  }
+// ---------------------------- GET DATOLAVORATIVO --------------------------------------------------	
+	  
+	  /*
+	   *  get list of dati lavorativi through jpa
+	   */
+	  // localhost:8080/api/getDatiLavorativi
+	  @GetMapping(path ="/getDatiLavorativi", produces=MediaType.APPLICATION_JSON_VALUE)
+	  public ResponseEntity<List<DatoLavorativo>> getDatiLavorativi(){ // CREO IL METODO X LA RISPOSTA HTTP
+		  logger.info("getDatiLavorativi");
+		  try {
+			   List<DatoLavorativo> res = this.datoLavorativoService.getAllDatiDipendenti();
+			   logger.info("DatoLavorativo: \n", res);
+			   return new ResponseEntity<List<DatoLavorativo>>(res, HttpStatus.OK);
+			   }catch (Exception e) {	  
+				   logger.error("ERROR: \n", e);
+				   return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+			   }      
+		  }
 	  
 //  --------------------------- METODO CON ECCEZIONE --------------------------------------    
   
